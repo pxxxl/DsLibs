@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="测试">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="核心">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="实现">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="接口">
+      <UniqueIdentifier>{68d9ec9e-bc67-4bba-81c1-b53e1e823e1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="算法">
+      <UniqueIdentifier>{1db6e558-ce80-49b2-8768-7584fcfea823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="遗产">
+      <UniqueIdentifier>{64317d7f-0cf9-4d31-a101-1bb147d60461}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Test.cpp">
+      <Filter>测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanoi.h">
+      <Filter>算法</Filter>
+    </ClCompile>
+    <ClCompile Include="Huffman.h">
+      <Filter>算法</Filter>
+    </ClCompile>
+    <ClCompile Include="KMP.h">
+      <Filter>算法</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphs.hpp">
+      <Filter>核心</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="e_d_list.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="e_d_list_iterator.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="e_l_queue.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="e_r_queue.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="e_stack.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="e_vector.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="e_vector_iterator.hpp">
+      <Filter>实现</Filter>
+    </ClInclude>
+    <ClInclude Include="c_AVL_tree.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_B_tree.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_binary_search_tree.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_binary_tree.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_generalized_list.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_hash_chaining.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_heap.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="c_splay_tree.hpp">
+      <Filter>核心</Filter>
+    </ClInclude>
+    <ClInclude Include="interface_iterator.hpp">
+      <Filter>接口</Filter>
+    </ClInclude>
+    <ClInclude Include="interface_linear_list.hpp">
+      <Filter>接口</Filter>
+    </ClInclude>
+    <ClInclude Include="interface_queue.hpp">
+      <Filter>接口</Filter>
+    </ClInclude>
+    <ClInclude Include="interface_stack.hpp">
+      <Filter>接口</Filter>
+    </ClInclude>
+    <ClInclude Include="interface_tree.hpp">
+      <Filter>接口</Filter>
+    </ClInclude>
+    <ClInclude Include="settings.hpp">
+      <Filter>接口</Filter>
+    </ClInclude>
+    <ClInclude Include="AvlTree.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="MFSet.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="ParentTree.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedBinaryTree.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeOrForest.h">
+      <Filter>遗产</Filter>
+    </ClInclude>
+    <ClInclude Include="DFS_BFS.h">
+      <Filter>算法</Filter>
+    </ClInclude>
+    <ClInclude Include="Sorts.h">
+      <Filter>算法</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
