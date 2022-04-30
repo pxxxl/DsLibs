@@ -26,7 +26,7 @@ namespace eds {
 	using status = int;
 
 	constexpr int OK = 1;
-	constexpr int INFEASIBLE = 0;
+	constexpr int INFEASIBLE = -1;
 
 	inline void handle_memory_alloc(void* point_to_allocated_memory) {
 		assert(!(point_to_allocated_memory == nullptr));

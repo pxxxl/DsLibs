@@ -1,10 +1,9 @@
 #pragma once
 
 #include"settings.hpp"
-#include"interface_linear_list.hpp"
-
 
 namespace eds {
+
 template<typename T>
 struct d_node {
 	T data;
@@ -13,7 +12,7 @@ struct d_node {
 };
 
 template<typename T>
-class d_list : public intf_linear_list<T> {
+class d_list{
 public:
 	d_list();
 	d_list(std::initializer_list<T> list);
@@ -32,19 +31,14 @@ public:
 	T& get_item(unsigned n) const;
 
 	//find the first element causing func(sample, tested) to return true, and return its serial number.
-	//status == OK  :  founded
-	//status == INFEASIBLE  :  not found
-	std::tuple<unsigned, status> locate_item(const T& sample, std::function<bool(const T& sample, const T& tested)> func) const;
+	//return INFEASIBLE means no element match the demand
+	int locate_item(const T& sample, std::function<bool(const T& sample, const T& tested)> func) const;
 
 	//return the former element of the sample
-	//status == OK  :  founded
-	//status == INFEASIBLE  :  not found
-	std::tuple<T&, status> prior_item(const T& sample) const noexcept;
+	T* prior_item(const T& sample) const noexcept;
 
 	//return the latter element of the sample
-	//status == OK  :  founded
-	//status == INFEASIBLE  :  not found
-	std::tuple<T&, status> next_item(const T& sample) const noexcept;
+	T* next_item(const T& sample) const noexcept;
 
 	//insert the element to linear_list[n]
 	//make sure len >= n >= 0
@@ -178,19 +172,19 @@ inline T& d_list<T>::get_item(unsigned n) const
 }
 
 template<typename T>
-inline std::tuple<unsigned, status> d_list<T>::locate_item(const T& sample, std::function<bool(const T& sample, const T& tested)> func) const
+inline int d_list<T>::locate_item(const T& sample, std::function<bool(const T& sample, const T& tested)> func) const
 {
 	auto cur = head;
 	for (unsigned i = 0; cur != nullptr; i++) {
 		if (func(sample, cur->data)) {
-			return std::tuple<unsigned, status>(i, INFEASIBLE);
+			return i;
 		}
 	}
-	return std::tuple<unsigned, status>(0, INFEASIBLE);
+	return INFEASIBLE;
 }
 
 template<typename T>
-inline std::tuple<T&, status> d_list<T>::prior_item(const T& sample) const noexcept
+inline T* d_list<T>::prior_item(const T& sample) const noexcept
 {
 	if (len == 0) {
 		return std::tuple<T&, status>(n_obj, INFEASIBLE);
@@ -198,25 +192,25 @@ inline std::tuple<T&, status> d_list<T>::prior_item(const T& sample) const noexc
 	auto cur = head ->next;
 	for (; cur != nullptr;cur = cur->next) {
 		if (sample == cur->data) {
-			return std::tuple<T&, status>(cur->prior->data, OK);
+			return &(cur->prior->data);
 		}
 	}
-	return std::tuple<T&, status>(n_obj, INFEASIBLE);
+	return nullptr;
 }
 
 template<typename T>
-inline std::tuple<T&, status> d_list<T>::next_item(const T& sample) const noexcept
+inline T* d_list<T>::next_item(const T& sample) const noexcept
 {
 	if (len == 0) {
-		return std::tuple<T&, status>(n_obj, INFEASIBLE);
+		return nullptr;
 	}
 	auto cur = tail->prior;
 	for (; cur != nullptr; cur = cur->prior) {
 		if (sample == cur->data) {
-			return std::tuple<T&, status>(cur->next->data, OK);
+			return &(cur->next->data);
 		}
 	}
-	return std::tuple<T&, status>(n_obj, INFEASIBLE);
+	return nullptr;
 }
 
 template<typename T>
@@ -395,20 +389,6 @@ inline void d_list<T>::print_linear_list(std::ostream& out) const noexcept
 	}
 	return;
 }
-
-//template<typename T>
-//inline d_list_iterator<T> d_list<T>::begin() const noexcept
-//{
-//	d_list_iterator<T> ite(0u, this);
-//	return ite;
-//}
-
-//template<typename T>
-//inline d_list_iterator<T> d_list<T>::end() const noexcept
-//{
-//	d_list_iterator<T> ite(len, this);
-//	return ite;
-//}
 
 template<typename T>
 inline d_list<T>::~d_list()

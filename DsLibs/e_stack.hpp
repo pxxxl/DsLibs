@@ -1,7 +1,6 @@
 #pragma once
 
 #include"settings.hpp"
-#include"interface_stack.hpp"
 
 namespace eds {
 
@@ -12,7 +11,7 @@ struct stack_node {
 };
 
 template<typename T>
-class l_stack : public intf_stack<T> {
+class l_stack{
 public:
 	l_stack(std::initializer_list<T> list);
 	l_stack() = default;

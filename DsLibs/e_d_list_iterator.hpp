@@ -2,7 +2,6 @@
 
 #include"settings.hpp"
 #include"e_d_list.hpp"
-#include"interface_iterator.hpp"
 
 namespace eds {
 	template<typename T>

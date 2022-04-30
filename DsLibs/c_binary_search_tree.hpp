@@ -17,6 +17,7 @@ namespace eds {
 		T Data;
 		SearchTree<T> Left;
 		SearchTree<T> Right;
+		int Count;
 	};
 
 	template<typename T>
@@ -38,6 +39,9 @@ namespace eds {
 		}
 		if (sample > Tree->Data) {
 			return Find(sample, Tree->Right);
+		}
+		if (Tree->Count == 0) {
+			return nullptr;
 		}
 		return Tree;
 	}
@@ -67,6 +71,7 @@ namespace eds {
 			Tree->Left = nullptr;
 			Tree->Right = nullptr;
 			Tree->Data = X;
+			Tree->Count = 1;
 		}
 		else {
 			if (Tree->Data == X) {
@@ -128,7 +133,7 @@ namespace eds {
 			}
 			else {
 				if (Tree->Count != 0) {
-					Count--;
+					Tree->Count--;
 				};
 			}
 		}

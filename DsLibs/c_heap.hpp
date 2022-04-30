@@ -14,10 +14,10 @@ namespace eds {
 	using PriorityQueue = HeapStruct<T>*;
 
 	template<typename T>
-	PriorityQueue<T> Initialize(int MaxElements, T MinData) {
-		PriorityQueue H = new HeapStruct;
+	PriorityQueue<T> InitializeHeap(int MaxElements, T MinData) {
+		PriorityQueue<T> H = new HeapStruct<T>;
 		H->Elements = new T[MaxElements + 1];
-		H->Capacity = MaxElement;
+		H->Capacity = MaxElements;
 		H->Size = 0;
 		H->Elements[0] = MinData;
 		return H;
@@ -35,7 +35,7 @@ namespace eds {
 
 	template<typename T>
 	int IsEmpty(PriorityQueue<T> H) {
-		if (0 = H->Size) {
+		if (0 == H->Size) {
 			return 1;
 		}
 		else {
@@ -52,7 +52,7 @@ namespace eds {
 	void Insert(T X, PriorityQueue<T> H) {
 		int i;
 		if (IsFull(H)) {
-			std::runtime_error("From eds::c_heap::Insert : heap full");
+			throw std::runtime_error("From eds::c_heap::Insert : heap full");
 		}
 		for (i = ++H->Size; H->Elements[i / 2] > X; i /= 2) {
 			H->Elements[i] = H->Elements[i / 2];
@@ -62,7 +62,28 @@ namespace eds {
 
 	template<typename T>
 	T DeleteMin(PriorityQueue<T> H) {
-		
+		int i, Child;
+		T MinElement, LastElement;
+
+		if (IsEmpty(H)) {
+			throw std::runtime_error("From eds::c_head::DeleteMin : heap empty");
+		}
+		MinElement = H->Elements[0];
+		LastElement = H->Elements[H->Size --];
+
+		for (i = 1; i * 2 <= H->Size; i = Child) {
+			Child = i * 2;
+			if (Child != H->Size && H->Elements[Child + 1] < H->Elements[Child]) {
+				Child++;
+			}
+
+			if (LastElement > H->Elements[Child])
+				H->Elements[i] = H->Elements[Child];
+			else
+				break;
+		}
+		H->Elements[i] = LastElement;
+		return MinElement;
 	}
 
 

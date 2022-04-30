@@ -1,5 +1,6 @@
 #pragma once
-#include"e_d_list.hpp"
+
+#include"c_heap.hpp"
 #include<iostream>
 
 //冒泡排序（及其改进版）
@@ -9,14 +10,13 @@
 //自顶向下归并
 //自底向上归并
 //快速排序
+//堆排序
 
 namespace eds {
 
 //https://zhuanlan.zhihu.com/p/40695917
 
-	using sarray = d_list<int>;
-
-	void printArray(int* arr, size_t length) {
+	void printArray(int* arr, int length) {
 		for (int i = 0; i < length; i++) {
 			std::cout << arr[i] << "  ";
 		}
@@ -31,12 +31,12 @@ namespace eds {
 	}
 
 	//冒泡排序，flag是true时从小到大，false时从大到小
-	void bubbleSort(int* arr,size_t length, bool flag) {
+	void bubbleSort(int* arr,int length, bool flag) {
 		if (arr == NULL) {
 			return;
 		}
-		for (unsigned i = 0; i < length-1; i++) {
-			for (unsigned j = 0; j < length-i-1; j++) {
+		for (int i = 0; i < length-1; i++) {
+			for (int j = 0; j < length-i-1; j++) {
 				if ((arr[j] > arr[j + 1]) == flag) {
 					swapElem(arr[j], arr[j + 1]);
 				}
@@ -46,13 +46,13 @@ namespace eds {
 	}
 
 	//加入在每一个循环中进行检验，如果没有交换过，直接退出
-	void bubbleSortPlus(int* arr, size_t length, bool flag) {
+	void bubbleSortPlus(int* arr, int length, bool flag) {
 		if (arr == NULL) {
 			return;
 		}
 		bool exchange = false;
-		for (unsigned i = 0; i < length - 1; i++) {
-			for (unsigned j = 0; j < length - i - 1; j++) {
+		for (int i = 0; i < length - 1; i++) {
+			for (int j = 0; j < length - i - 1; j++) {
 				if ((arr[j] > arr[j + 1]) == flag) {
 					swapElem(arr[j], arr[j + 1]);
 					exchange = true;
@@ -69,13 +69,13 @@ namespace eds {
 	}
 
 	//选择排序，flag是true时从小到大，false时从大到小
-	void selectSort(int* arr, size_t length, bool flag) {
+	void selectSort(int* arr, int length, bool flag) {
 		if (arr == NULL) {
 			return;
 		}
-		unsigned target = 0;
-		for (unsigned i = 0; i < length; i++) {
-			for (unsigned j = i; j < length; j++) {
+		int target = 0;
+		for (int i = 0; i < length; i++) {
+			for (int j = i; j < length; j++) {
 				if ((arr[j] > arr[target]) == flag) {
 					target = j;
 				}
@@ -87,7 +87,7 @@ namespace eds {
 	}
 
 	//插入排序，flag是true时从小到大，false时从大到小
-	void insertSort(int* arr, size_t length, bool flag) {
+	void insertSort(int* arr, int length, bool flag) {
 		if (arr == NULL) {
 			return;
 		}
@@ -106,17 +106,17 @@ namespace eds {
 		}
 	}
 
-	void shellInsertSort(int*, size_t, unsigned, bool);
+	void shellInsertSort(int*, int, int, bool);
 	//希尔排序，flag是true时从小到大，false时从大到小
-	void shellSort(int* arr, size_t length, bool flag) {
+	void shellSort(int* arr, int length, bool flag) {
 		if (arr == NULL) {
 			return;
 		}
-		for (unsigned step = length / 2; step != 0; step /= 2) {
+		for (int step = length / 2; step != 0; step /= 2) {
 			shellInsertSort(arr, length, step, flag);
 		}
 	}
-	void shellInsertSort(int* arr, size_t length, unsigned step, bool flag) {
+	void shellInsertSort(int* arr, int length, int step, bool flag) {
 		for (int i = 0; i + step <= length; i += step) {
 			int save = arr[i];
 			int j = i - step;
@@ -136,7 +136,7 @@ namespace eds {
 	void mergeSortTDDetail(int* arr, int start, int end, bool flag, int* space);
 	//自顶向下归并排序，flag是true时从小到大，false时从大到小
 	//start起始，end尾后，(start+end)/2截断
-	void mergeSortTD(int* arr, size_t length, bool flag) {
+	void mergeSortTD(int* arr, int length, bool flag) {
 		if (arr == NULL) {
 			return;
 		}
@@ -190,22 +190,13 @@ namespace eds {
 	void mergeDT(int* arr, int start, int end, int cut, bool flag, int* space);
 	//自底向上归并排序，flag是true时从小到大，false时从大到小
 	//start起始，end尾后，(start+end)/2截断
-	void mergeSortDT(int* arr, size_t length, bool flag) {
-		int step = 2;
-		int start = 0;
-		int end = 0;
+	void mergeSortDT(int* arr, int length, bool flag) {
 		int* space = new int[length];
-		while (step <= length) {
-			int i = 0;
-			for (; i + step <= length - 1; i += step) {
-				start = i;
-				end = i + step;
-				mergeDT(arr, start, end, start + step / 2, flag, space);
+		for (int step = 2; step < length; step *= 2) {
+			for (int i = 0; i + step <= length; i += step) {
+				mergeDT(arr, i, i + step, i + step / 2, flag, space);
 			}
-			mergeDT(arr, i, length, i + step / 2, flag, space);
-			step *= 2;
 		}
-		mergeDT(arr, 0, length, step / 2, flag, space);
 		return;
 	}
 
@@ -217,7 +208,7 @@ namespace eds {
 			space[i] = arr[i];
 		}
 		int curA = start;
-		int curB = cut;
+		int curB = cut + 1;
 		for (int cur = start; cur < end; cur++) {
 			if (curA != cut && curB != end) {
 				if ((space[curA] < space[curB]) == flag) {
@@ -244,7 +235,7 @@ namespace eds {
 	//https://zhuanlan.zhihu.com/p/63202860
 	void quickSortDetail(int* arr, int start, int end, bool flag);
 	//快速排序，flag是true时从小到大，false时从大到小
-	void quickSort(int* arr, size_t length, bool flag) {
+	void quickSort(int* arr, int length, bool flag) {
 		quickSortDetail(arr, 0, length, flag);
 		return;
 	}
@@ -283,5 +274,39 @@ namespace eds {
 		quickSortDetail(arr, start, right, flag);
 		quickSortDetail(arr, right+1, end, flag);
 	}
+
+	//堆排序，flag是true时从小到大，false时从大到小
+	void heapSort(int* arr, int length, bool flag) {
+		if (arr == NULL) {
+			return;
+		}
+		int min = arr[0];
+		for (int i = 0; i < length; i++) {
+			if (arr[i] < min) {
+				min = arr[i];
+			}
+		}
+		auto heap = InitializeHeap<int>(length, min);
+		bool minInserted = false;
+		for (int i = 0; i < length; i++) {
+			if ( !minInserted && arr[i] == min) {
+				minInserted = true;
+			}
+			else {
+				Insert<int>(arr[i], heap);
+			}
+		}
+		if (flag) {
+			for (int i = 0; i < length; i++) {
+				arr[i] = DeleteMin(heap);
+			}
+		}
+		else {
+			for (int i = length - 1; i >= 0; i--) {
+				arr[i] = DeleteMin(heap);
+			}
+		}
+	}
+
 
 }

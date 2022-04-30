@@ -155,8 +155,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AvlTree.h" />
-    <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="c_AVL_tree.hpp" />
     <ClInclude Include="c_binary_search_tree.hpp" />
     <ClInclude Include="c_binary_tree.hpp" />
@@ -167,17 +165,12 @@
     <ClInclude Include="c_splay_tree.hpp" />
     <ClInclude Include="DFS_BFS.h" />
     <ClInclude Include="e_d_list.hpp" />
-    <ClInclude Include="e_d_list_iterator.hpp" />
+    <ClInclude Include="e_list.hpp" />
     <ClInclude Include="e_l_queue.hpp" />
     <ClInclude Include="e_r_queue.hpp" />
     <ClInclude Include="e_stack.hpp" />
     <ClInclude Include="e_vector.hpp" />
-    <ClInclude Include="e_vector_iterator.hpp" />
-    <ClInclude Include="interface_iterator.hpp" />
-    <ClInclude Include="interface_linear_list.hpp" />
-    <ClInclude Include="interface_queue.hpp" />
-    <ClInclude Include="interface_stack.hpp" />
-    <ClInclude Include="interface_tree.hpp" />
+    <ClInclude Include="Search.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MFSet.h" />
     <ClInclude Include="ParentTree.h" />

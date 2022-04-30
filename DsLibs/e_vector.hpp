@@ -1,8 +1,6 @@
 #pragma once
 
 #include"settings.hpp"
-#include"interface_linear_list.hpp"
-#include"e_vector_iterator.hpp"
 
 namespace eds {
 
@@ -13,7 +11,7 @@ template<typename T>
 class vector_iterator;
 
 template<typename T>
-class vector : public intf_linear_list<T>{
+class vector{
 public:
 	vector(std::initializer_list<T> list);
 	vector();
