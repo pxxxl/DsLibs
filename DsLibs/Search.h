@@ -149,11 +149,10 @@ namespace eds {
 	}
 
 	//二叉搜索
-	//没测试过
 	int binarySearchTreeSearch(int* arr, int length, int target) {
 		SearchTree<int> tree = nullptr;
 		for (int i = 0; i < length; i++) {
-			Insert(arr[i], tree);
+			tree = Insert(arr[i], tree);
 		}
 		auto result = Find(target, tree);
 		if (result == nullptr) {
@@ -165,11 +164,10 @@ namespace eds {
 	}
 
 	//AVL搜索
-	//没测试过
 	int AVLSearch(int* arr, int length, int target) {
 		AvlTree<int> tree = nullptr;
 		for (int i = 0; i < length; i++) {
-			Insert(arr[i], tree);
+			tree = Insert(arr[i], tree);
 		}
 		auto result = Find(target, tree);
 		if (result == nullptr) {

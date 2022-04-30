@@ -162,6 +162,7 @@
     <ClInclude Include="c_generalized_list.hpp" />
     <ClInclude Include="c_hash_chaining.hpp" />
     <ClInclude Include="c_heap.hpp" />
+    <ClInclude Include="c_RedBlackTree.h" />
     <ClInclude Include="c_splay_tree.hpp" />
     <ClInclude Include="DFS_BFS.h" />
     <ClInclude Include="e_d_list.hpp" />

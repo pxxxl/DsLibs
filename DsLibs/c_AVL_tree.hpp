@@ -17,6 +17,7 @@ namespace eds {
 		AvlTree<T> Left;
 		AvlTree<T> Right;
 		int Height;
+		int Count;
 	};
 
 	template<typename T>
@@ -39,25 +40,50 @@ namespace eds {
 		if (sample > Tree->Data) {
 			return Find(sample, Tree->Right);
 		}
+		if (Tree->Count == 0) {
+			return nullptr;
+		}
 		return Tree;
 	}
 	template<typename T>
 	inline APosition<T> FindMin(AvlTree<T> Tree) {
+		APosition<T> Hold = Tree;
 		if (Tree != nullptr) {
-			while (Tree->Left != nullptr) {
-				Tree = Tree->Left;
+			while (Hold->Count == 0) {
+				while (Tree->Left != nullptr) {
+					Tree = Tree->Left;
+					if (Tree->Count != 0) {
+						Hold = Tree;
+					}
+				}
+				Hold = Hold->Right;
+				if (Hold == nullptr) {
+					break;
+				}
+				Tree = Hold;
 			}
 		}
-		return Tree;
+		return Hold;
 	}
 	template<typename T>
 	inline AvlTree<T> FindMax(AvlTree<T> Tree) {
+		APosition<T> Hold = Tree;
 		if (Tree != nullptr) {
-			while (Tree->Right != nullptr) {
-				Tree = Tree->Right;
+			while (Hold->Count == 0) {
+				while (Tree->Right != nullptr) {
+					Tree = Tree->Right;
+					if (Tree->Count != 0) {
+						Hold = Tree;
+					}
+				}
+				Hold = Hold->Left;
+				if (Hold == nullptr) {
+					break;
+				}
+				Tree = Hold;
 			}
 		}
-		return Tree;
+		return Hold;
 	}
 
 	template<typename T>
@@ -100,7 +126,7 @@ namespace eds {
 
 	template<typename T>
 	static APosition<T> DoubleRotateWithRight(APosition<T> K3) {
-		K3->Left = SingleRotateWithLeft(K3->Left);
+		K3->Right = SingleRotateWithLeft(K3->Right);
 		return SingleRotateWithRight(K3);
 	}
 
@@ -112,27 +138,28 @@ namespace eds {
 			Tree->Right = nullptr;
 			Tree->Data = X;
 			Tree->Height = 0;
+			Tree->Count = 1;
 		}
 		else {
 			if (X < Tree->Data) {
-				Insert(X, Tree->Left);
+				Tree->Left = Insert(X, Tree->Left);
 				if (Height(Tree->Left) - Height(Tree->Right) == 2) {
 					if (X < Tree->Left->Data) {
 						Tree = SingleRotateWithLeft(Tree);
 					}
 					else {
-						Tree = DoubleRotateWithRight(Tree);
+						Tree = DoubleRotateWithLeft(Tree);
 					}
 				}
 			}
 			else {
-				Insert(X, Tree->Right);
+				Tree->Right = Insert(X, Tree->Right);
 				if (Height(Tree->Right) - Height(Tree->Left) == 2) {
-					if (X < Tree->Right->Data) {
+					if (X > Tree->Right->Data) {
 						Tree = SingleRotateWithRight(Tree);
 					}
 					else {
-						Tree = DoubleRotateWithLeft(Tree);
+						Tree = DoubleRotateWithRight(Tree);
 					}
 				}
 			}
@@ -143,7 +170,23 @@ namespace eds {
 
 	template<typename T>
 	inline AvlTree<T> Delete(T X, AvlTree<T>* Tree) {
-
+		if (Tree == nullptr) {
+			throw std::runtime_error("From eds::AVL_tree : NULL TREE");
+		}
+		else {
+			if (X < Tree->Data) {
+				Delete(X, Tree->Left);
+			}
+			else if (X > Tree->Data) {
+				Delete(X, Tree->Right);
+			}
+			else {
+				if (Tree->Count != 0) {
+					Tree->Count--;
+				};
+			}
+		}
+		return Tree;
 	}
 
 

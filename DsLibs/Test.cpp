@@ -12,5 +12,5 @@ int main()
 	//shellSort(arr, 9, true);
 	printArray(arr, 9);
 	cout << endl;
-	cout << binarySearchTreeSearch(arr, 9, 45);
+	cout << AVLSearch(arr, 9, 45);
 }

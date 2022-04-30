@@ -104,5 +104,8 @@
     <ClInclude Include="Search.h">
       <Filter>算法</Filter>
     </ClInclude>
+    <ClInclude Include="c_RedBlackTree.h">
+      <Filter>非线性</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

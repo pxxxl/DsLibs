@@ -47,21 +47,43 @@ namespace eds {
 	}
 	template<typename T>
 	inline Position<T> FindMin(SearchTree<T> Tree) {
+		Position<T> Hold = Tree;
 		if (Tree != nullptr) {
-			while (Tree->Left != nullptr) {
-				Tree = Tree->Left;
+			while (Hold->Count == 0) {
+				while (Tree->Left != nullptr) {
+					Tree = Tree->Left;
+					if (Tree->Count != 0) {
+						Hold = Tree;
+					}
+				}
+				Hold = Hold->Right;
+				if (Hold == nullptr) {
+					break;
+				}
+				Tree = Hold;
 			}
 		}
-		return Tree;
+		return Hold;
 	}
 	template<typename T>
 	inline SearchTree<T> FindMax(SearchTree<T> Tree) {
+		Position<T> Hold = Tree;
 		if (Tree != nullptr) {
-			while (Tree->Right != nullptr) {
-				Tree = Tree->Right;
+			while (Hold->Count == 0) {
+				while (Tree->Right != nullptr) {
+					Tree = Tree->Right;
+					if (Tree->Count != 0) {
+						Hold = Tree;
+					}
+				}
+				Hold = Hold->Left;
+				if (Hold == nullptr) {
+					break;
+				}
+				Tree = Hold;
 			}
 		}
-		return Tree;
+		return Hold;
 	}
 
 	template<typename T>
@@ -75,13 +97,14 @@ namespace eds {
 		}
 		else {
 			if (Tree->Data == X) {
+				if(Tree->Count == 0)
 				Tree->Count++;
 			}
 			else if (Tree->Data > X) {
-				Insert(X, Tree->Left);
+				Tree->Left = Insert(X, Tree->Left);
 			}
 			else {
-				Insert(X, Tree->Right);
+				Tree->Right = Insert(X, Tree->Right);
 			}
 		}
 		return Tree;
@@ -129,7 +152,7 @@ namespace eds {
 				Delete(X, Tree->Left);
 			}
 			else if (X > Tree->Data) {
-				Insert(X, Tree->Right);
+				Delete(X, Tree->Right);
 			}
 			else {
 				if (Tree->Count != 0) {
